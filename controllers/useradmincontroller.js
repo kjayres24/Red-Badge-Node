@@ -4,15 +4,15 @@ var sequelize = require('../db');
 var User = sequelize.import('../models/useradmin');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
-
+validateSession = require('../middleware/validate-session');
 
 router.post('/signup', (req, res) => {
     User.create({
+        isAdmin: false,
         name: req.body.name,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 10),
-        location: req.body.location,
-        isAdmin: false
+        location: req.body.location
     })
         .then(
             createSuccess = (user) => {

@@ -1,3 +1,5 @@
+
+
 module.exports = function (sequelize, DataTypes) {
     return sequelize.define('huntlocations', {
         location: DataTypes.STRING,
@@ -6,4 +8,5 @@ module.exports = function (sequelize, DataTypes) {
         date: DataTypes.STRING,
         img: DataTypes.STRING
     });
+
 }
