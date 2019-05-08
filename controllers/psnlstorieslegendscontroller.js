@@ -1,14 +1,16 @@
 const router = require ('express').Router()
 const Psnlstorieslegends = require('../db').import('../models/psnlstorieslegends')
-//const validateSession = require('../middleware/validate-session')
+const validateSession = require('../middleware/validate-session')
 
-router.post('/post',  (req,res)=>{
+router.post('/post', validateSession, (req,res)=>{
     Psnlstorieslegends.create({
         title:req.body.title,
         time:req.body.time,
         date:req.body.date,
         img:req.body.img,
-        description:req.body.description
+        description:req.body.description,
+        userId:req.user.id
+       
     })
     .then(
         createSuccess = psnlstorieslegends =>{
@@ -18,30 +20,32 @@ router.post('/post',  (req,res)=>{
             res.send(500, err.message)
         
      })
-     router.get('/', (req,res)=>{
+    })
+
+     router.get('/', validateSession, (req,res)=>{
         Psnlstorieslegends.findAll({
-            where: {
-                owner_id :req.user.id //add sequelize association here.
-            }
+            // where: {
+            //  //add sequelize association here.
+            // }
         })
         .then(psnlstorieslegends => res.status(200).json(psnlstorieslegends))
         .catch(err=> res.status(500).json({error: err}))
     })
 
-    router.put('/:id', (req, res) => {
-        Psnlstorieslegends.update(req.body, { where: { id: req.params.id }}) //add sequelize association here.
+    router.put('/update/:id', validateSession ,(req, res) => {
+        Psnlstorieslegends.update(req.body, { where: { id: req.params.id, userId: req.user.id }}) //add sequelize association here?
             .then(psnlstorieslegends => res.status(200).json(psnlstorieslegends))
             .catch(err => res.status(500).json({error: err}))
         });
     
-    router.delete('/:id',(req,res)=>{
-        Psnlstorieslegends.destroy({where: {id: req.params.id}}) //add sequelize association here.
+    router.delete('/delete/:id', validateSession, (req,res)=>{
+        Psnlstorieslegends.destroy({where: {id: req.params.id, userId: req.user.id }}) //add sequelize association here?
         .then(recChanged => res.status(200).json(recChanged))
         .catch(err=> res.status(500).json({error:err})) 
     })
 
 
-});
+
 
 
 module.exports =router;
