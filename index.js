@@ -16,10 +16,10 @@ app.use('/huntlocations', huntlocations);
 
 app.use('/user', user);
 
+app.use('/psnllgnd', Psnlstorieslegends)
 
 app.use(require('./middleware/headers'));
 
-app.use('/psnllgnd', Psnlstorieslegends)
 
 app.use(require('./middleware/validate-session'));
 
