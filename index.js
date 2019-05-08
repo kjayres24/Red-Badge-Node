@@ -10,11 +10,13 @@ var user = require('./controllers/useradmincontroller');
 
 sequelize.sync();
 
+app.use(bodyParser.json());
+
 app.use('/huntlocations', huntlocations);
+
 
 app.use('/user', user);
 
-app.use(bodyParser.json());
 
 app.use(require('./middleware/headers'));
 
