@@ -1,4 +1,4 @@
-module.exports = (sequelize,DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
     const Psnlstorieslegends = sequelize.define('psnlstorieslegends', {
         title: {
             type: DataTypes.STRING,
@@ -6,7 +6,7 @@ module.exports = (sequelize,DataTypes) => {
         },
 
         time: {
-            type:DataTypes.STRING,
+            type: DataTypes.STRING,
             allowNull: false
         },
 
@@ -15,15 +15,19 @@ module.exports = (sequelize,DataTypes) => {
             allowNull: false
         },
 
-        img:{
+        img: {
             type: DataTypes.TEXT,
             allowNull: false
         },
 
-        description:{
+        description: {
             type: DataTypes.TEXT,
             allowNull: false
         },
+        tag: {
+            type: DataTypes.STRING,
+            allowNull: false
+        }
 
     });
     return Psnlstorieslegends;

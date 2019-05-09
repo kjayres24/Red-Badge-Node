@@ -21,6 +21,10 @@ module.exports = (sequelize, DataTypes) => {
         img: {
             type: DataTypes.TEXT,
             allowNull: false
+        },
+        tag: {
+            type: DataTypes.STRING,
+            allowNull: false
         }
     });
     return huntlocations;
