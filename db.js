@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 
-const sequelize = new Sequelize('group-project', 'postgres', 'reggie44', { //change password back to reggie44 before pushing to github
+const sequelize = new Sequelize('group-project', 'postgres', 'mickeym5r11', { //change password back to reggie44 before pushing to github
     host: 'localhost',
     dialect: 'postgres'
 });

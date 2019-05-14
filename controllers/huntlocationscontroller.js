@@ -10,6 +10,31 @@ router.get('/getall', validateSession, (req, res) => {
         .catch(err => res.status(500).json({ error: err }))
 });
 
+router.get('/usershauntedlocations', validateSession, (req, res) => {
+    huntlocations.findAll({ where: { userId: req.user.id, tag: 'Haunted Locations', } })
+        .then(location => res.status(200).json(location))
+        .catch(err => res.status(500).json({ error: err }))
+});
+
+router.get('/usersghosthunts', validateSession, (req, res) => {
+    huntlocations.findAll({ where: { userId: req.user.id, tag: 'Ghost Hunts', } })
+        .then(location => res.status(200).json(location))
+        .catch(err => res.status(500).json({ error: err }))
+});
+
+router.get('/ghosthunts', (req, res) => {
+    huntlocations.findAll({ where: { tag: 'Ghost Hunts' } })
+        .then(hunt => res.status(200).json(hunt))
+        .catch(err => res.status(500).json({ error: err }))
+});
+
+router.get('/hauntedlocations', (req, res) => {
+    huntlocations.findAll({ where: { tag: 'Haunted Locations' } })
+        .then(location => res.status(200).json(location))
+        .catch(err => res.status(500).json({ error: err }))
+});
+
+
 router.post('/create', validateSession, (req, res) => {
     const newPost = {
         location: req.body.location,
@@ -17,7 +42,9 @@ router.post('/create', validateSession, (req, res) => {
         time: req.body.time,
         date: req.body.date,
         img: req.body.img,
-        userId: req.user.id
+        tag: req.body.tag,
+        userId: req.user.id,
+        userName: req.user.name
     };
     huntlocations.create(newPost)
         .then(huntlocations => res.status(200).json(huntlocations))
@@ -32,6 +59,12 @@ router.put('/update/:id', validateSession, (req, res) => {
 
 router.delete('/delete/:id', validateSession, (req, res) => {
     huntlocations.destroy({ where: { id: req.params.id, userId: req.user.id } })
+        .then(recChanged => res.status(200).json(recChanged))
+        .catch(err => res.status(500).json({ error: err }))
+})
+
+router.delete('/admindelete/:id', validateSession, (req, res) => {
+    huntlocations.destroy({ where: { id: req.params.id } })
         .then(recChanged => res.status(200).json(recChanged))
         .catch(err => res.status(500).json({ error: err }))
 })
