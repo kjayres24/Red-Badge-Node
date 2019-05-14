@@ -24,7 +24,7 @@ router.post('/post', validateSession, (req, res) => {
             })
 })
 
-router.get('/', validateSession, (req, res) => {
+router.get('/getall', validateSession, (req, res) => {
     Psnlstorieslegends.findAll({
         // where: {
         //  //add sequelize association here.
