@@ -10,6 +10,19 @@ router.get('/getall', validateSession, (req, res) => {
         .catch(err => res.status(500).json({ error: err }))
 });
 
+router.get('/ghosthunts', validateSession, (req, res) => {
+    huntlocations.findAll({ where: { tag: 'Ghost Hunts' } })
+        .then(huntlocations => res.status(200).json(huntlocations))
+        .catch(err => res.status(500).json({ error: err }))
+})
+
+router.get('/hauntedlocations', validateSession, (req, res) => {
+    huntlocations.findAll({ where: { tag: 'Haunted Locations' } })
+        .then(huntlocations => res.status(200).json(huntlocations))
+        .catch(err => res.status(500).json({ error: err }))
+})
+
+
 router.post('/create', validateSession, (req, res) => {
     const newPost = {
         location: req.body.location,
@@ -18,7 +31,8 @@ router.post('/create', validateSession, (req, res) => {
         date: req.body.date,
         img: req.body.img,
         userId: req.user.id,
-        tag: req.body.tag
+        tag: req.body.tag,
+        name: req.user.name
     };
     huntlocations.create(newPost)
         .then(huntlocations => res.status(200).json(huntlocations))

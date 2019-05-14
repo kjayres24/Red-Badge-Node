@@ -10,7 +10,8 @@ router.post('/post', validateSession, (req, res) => {
         img: req.body.img,
         description: req.body.description,
         userId: req.user.id,
-        tag: req.body.tag
+        tag: req.body.tag,
+        name: req.user.name
 
     })
         .then(
@@ -30,6 +31,18 @@ router.get('/', validateSession, (req, res) => {
         // }
     })
         .then(psnlstorieslegends => res.status(200).json(psnlstorieslegends))
+        .catch(err => res.status(500).json({ error: err }))
+})
+
+router.get('/personalstories', validateSession, (req, res) => {
+    Psnlstorieslegends.findAll({ where: { tag: 'Personal Stories' } })
+        .then(Psnlstorieslegends => res.status(200).json(Psnlstorieslegends))
+        .catch(err => res.status(500).json({ error: err }))
+})
+
+router.get('/urbanlegends', validateSession, (req, res) => {
+    Psnlstorieslegends.findAll({ where: { tag: 'Urban Legends' } })
+        .then(Psnlstorieslegends => res.status(200).json(Psnlstorieslegends))
         .catch(err => res.status(500).json({ error: err }))
 })
 
