@@ -4,7 +4,7 @@ var sequelize = require('../db');
 var User = sequelize.import('../models/useradmin');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
-validateSession = require('../middleware/validate-session');
+const validateSession = require('../middleware/validate-session');
 
 router.post('/signup', (req, res) => {
     User.create({
@@ -54,6 +54,18 @@ router.post('/signin', (req, res) => {
         },
             err => res.status(501).json({ error: 'Username or password does not match' })
         )
+})
+
+router.get('/currentuser', validateSession, (req, res) => {
+    User.findAll({ where: { id: req.user.id } })
+        .then(user => res.status(200).json(user))
+        .catch(err => res.status(500).json({ error: err }))
+});
+
+router.put('/update/:id', validateSession, (req, res) => {
+    User.update(req.body, { where: { id: req.params.id } })
+        .then(admin => res.status(200).json(admin))
+        .catch(err => res.status(500).json({ error: err }))
 })
 
 

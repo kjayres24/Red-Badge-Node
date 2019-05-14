@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 
-const sequelize = new Sequelize('group-project', 'postgres', 'reggie44', { //change password back to reggie44 before pushing to github
+const sequelize = new Sequelize('group-project', 'postgres', 'mickeym5r11', { //change password back to reggie44 before pushing to github
     host: 'localhost',
     dialect: 'postgres'
 });
@@ -16,12 +16,15 @@ sequelize.authenticate().then(
 );
 
 const user = sequelize.import('./models/useradmin');
-const huntlocations = sequelize.import('./models/huntlocations');
-const psnllgnd = sequelize.import('./models/psnlstorieslegends');
-//associations
+const huntlocations = sequelize.import ('./models/huntlocations');
+const psnllnd = sequelize.import('./models/psnlstorieslegends');
+
+// Associations
 user.hasMany(huntlocations);
 huntlocations.belongsTo(user);
 
-user.hasMany(psnllgnd);
-psnllgnd.belongsTo(user);
+user.hasMany(psnllnd);
+psnllnd.belongsTo(user);
+
+
 module.exports = sequelize;

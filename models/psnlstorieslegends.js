@@ -24,14 +24,14 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.TEXT,
             allowNull: false
         },
-        tag: {
+        tag:{
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull:false
         },
-        name: {
+        name:{
             type: DataTypes.STRING,
-            allowNull: false
-        }
+            allowNull:false
+        },
 
     });
     return Psnlstorieslegends;
