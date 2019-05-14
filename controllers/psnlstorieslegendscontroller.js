@@ -48,6 +48,32 @@ router.post('/post', validateSession, (req, res) => {
     });
 
 
+    router.get('/personalstories', (req, res) => {
+        Psnlstorieslegends.findAll({ where: { tag: 'Personal Stories' } })
+            .then(stories => res.status(200).json(stories))
+            .catch(err => res.status(500).json({ error: err }))
+    });
+
+    router.get('/urbanlegends', (req, res) => {
+        Psnlstorieslegends.findAll({ where: { tag: 'Urban Legends' } })
+            .then(legends => res.status(200).json(legends))
+            .catch(err => res.status(500).json({ error: err }))
+    });
+
+    router.get('/userspersonalstories', validateSession, (req, res) => {
+        Psnlstorieslegends.findAll({ where: { userId:req.user.id, tag: 'Personal Stories' } })
+            .then(stories => res.status(200).json(stories))
+            .catch(err => res.status(500).json({ error: err }))
+    });
+
+    router.get('/usersurbanlegends', validateSession, (req, res) => {
+        Psnlstorieslegends.findAll({ where: { userId:req.user.id, tag: 'Urban Legends' } })
+            .then(legends => res.status(200).json(legends))
+            .catch(err => res.status(500).json({ error: err }))
+    });
+
+
+
     router.put('/update/:id', validateSession ,(req, res) => {
         Psnlstorieslegends.update(req.body, { where: { id: req.params.id, userId: req.user.id }}) //add sequelize association here?
             .then(Psnlstorieslegends => res.status(200).json(Psnlstorieslegends))

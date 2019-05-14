@@ -11,8 +11,6 @@ var user = require('./controllers/useradmincontroller');
 sequelize.sync();
 
 app.use(bodyParser.json());
-<<<<<<< HEAD
-=======
 
 app.use(require('./middleware/headers'));
 
@@ -21,7 +19,6 @@ app.use('/huntlocations', huntlocations);
 
 app.use('/user', user);
 
->>>>>>> 5a014b8069a44cad4289b986527e90ab8e0443f4
 
 
 app.use('/huntlocations', huntlocations);
