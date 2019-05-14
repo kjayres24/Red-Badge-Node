@@ -9,7 +9,9 @@ router.post('/post', validateSession, (req,res)=>{
         date:req.body.date,
         img:req.body.img,
         description:req.body.description,
-        userId:req.user.id
+        userId:req.user.id,
+        tag: req.body.tag,
+        name: req.user.name
        
     })
     .then(
@@ -22,23 +24,37 @@ router.post('/post', validateSession, (req,res)=>{
      })
     })
 
-     router.get('/', validateSession, (req,res)=>{
+     router.get('/getall', validateSession, (req,res)=>{
         Psnlstorieslegends.findAll({
-            // where: {
-            //  //add sequelize association here.
-            // }
+
         })
-        .then(psnlstorieslegends => res.status(200).json(psnlstorieslegends))
+        .then(Psnlstorieslegends => res.status(200).json(Psnlstorieslegends))
         .catch(err=> res.status(500).json({error: err}))
-    })
+    });
+
+    router.get('/personalstories', validateSession, (req,res)=>{
+        Psnlstorieslegends.findAll({ where: {tag: 'Personal Stories'}
+        })
+        .then(Psnlstorieslegends => res.status(200).json(Psnlstorieslegends))
+        .catch(err=> res.status(500).json({error: err}))
+    });
+    
+    router.get('/urbanlegends', validateSession, (req,res)=>{
+        Psnlstorieslegends.findAll({where: {tag: 'Urban Legends' }
+        })
+        .then(Psnlstorieslegends => res.status(200).json(Psnlstorieslegends))
+        .catch(err=> res.status(500).json({error: err}))
+    });
+
 
     router.put('/update/:id', validateSession ,(req, res) => {
         Psnlstorieslegends.update(req.body, { where: { id: req.params.id, userId: req.user.id }}) //add sequelize association here?
-            .then(psnlstorieslegends => res.status(200).json(psnlstorieslegends))
+            .then(Psnlstorieslegends => res.status(200).json(Psnlstorieslegends))
             .catch(err => res.status(500).json({error: err}))
         });
     
-    router.delete('/delete/:id', validateSession, (req,res)=>{
+   
+        router.delete('/delete/:id', validateSession, (req,res)=>{
         Psnlstorieslegends.destroy({where: {id: req.params.id, userId: req.user.id }}) //add sequelize association here?
         .then(recChanged => res.status(200).json(recChanged))
         .catch(err=> res.status(500).json({error:err})) 
