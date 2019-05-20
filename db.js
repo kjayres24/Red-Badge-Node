@@ -19,7 +19,6 @@ const user = sequelize.import('./models/useradmin');
 const huntlocations = sequelize.import('./models/huntlocations');
 const psnllnd = sequelize.import('./models/psnlstorieslegends');
 
-// Associations
 user.hasMany(huntlocations);
 huntlocations.belongsTo(user);
 
