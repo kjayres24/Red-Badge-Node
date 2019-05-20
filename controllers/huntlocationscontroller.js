@@ -45,7 +45,9 @@ router.post('/create', validateSession, (req, res) => {
         img: req.body.img,
         userId: req.user.id,
         tag: req.body.tag,
-        name: req.user.name
+        name: req.user.name,
+        latitude: req.body.latitude,
+        longitude: req.body.longitude
     };
     huntlocations.create(newPost)
         .then(huntlocations => res.status(200).json(huntlocations))

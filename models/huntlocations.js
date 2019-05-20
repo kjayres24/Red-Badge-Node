@@ -31,10 +31,16 @@ module.exports = (sequelize, DataTypes) => {
         name: {
             type: DataTypes.STRING,
             allowNull: true
+        },
+        latitude: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        longitude: {
+            type: DataTypes.STRING,
+            allowNull: true
         }
     });
     return huntlocations;
 
 }
-
-// "img": "https://3320m92k42nq20mr5v2w53b6-wpengine.netdna-ssl.com/wp-content/uploads/2015/05/Launch_fishers_coworking_spaces.jpg",
