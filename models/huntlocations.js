@@ -3,6 +3,7 @@
 
 module.exports = (sequelize, DataTypes) => {
     const huntlocations = sequelize.define('huntlocations', {
+
         location: {
             type: DataTypes.STRING,
             allowNull: true

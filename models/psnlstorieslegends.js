@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
 
         time: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
 
         date: {
@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
         name: {
             type: DataTypes.STRING,
             allowNull: false
-        }
+        },
 
     });
     return Psnlstorieslegends;
